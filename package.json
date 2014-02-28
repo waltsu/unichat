@@ -1,0 +1,22 @@
+{
+  "name": "unichat",
+  "version": "0.0.0",
+  "description": "Lecture chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/waltsu/unichat.git"
+  },
+  "keywords": [
+    "chat",
+    "communication"
+  ],
+  "author": "Petri Avikainen, Valtteri Virtanen and Atte Moisio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/waltsu/unichat/issues"
+  }
+}

@@ -4,7 +4,13 @@
   "description": "Lecture chat",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-js": "browserify -t reactify app/main.js | uglifyjs -mc > public/js/bundle.js",
+    "build-css": "sass --compass app/styles:public/styles",
+    "watch-js": "watchify -t reactify --debug app/main.js -o public/js/bundle.js -dv",
+    "watch-css": "sass --watch --compass app/styles:public/styles",
+    "build": "npm run build-js && npm run build-css",
+    "watch": "npm run watch-js & npm run watch-css"
   },
   "repository": {
     "type": "git",
@@ -18,5 +24,11 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/waltsu/unichat/issues"
+  },
+  "devDependencies": {
+    "browserify": "~3.31.2",
+    "watchify": "~0.6.1",
+    "reactify": "~0.9.1",
+    "react-tools": "~0.9.0"
   }
 }

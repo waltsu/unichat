@@ -1,0 +1,1 @@
+comment = require('./scripts/comment')

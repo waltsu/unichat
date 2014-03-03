@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-js": "browserify -t reactify app/main.js | uglifyjs -mc > public/js/bundle.js",
+    "build-js": "browserify -t coffeeify -t [ reactify --extension coffee ] app/main.coffee | uglifyjs -mc > public/js/bundle.js",
     "build-css": "sass --compass app/styles:public/styles",
-    "watch-js": "watchify -t reactify --debug app/main.js -o public/js/bundle.js -dv",
+    "watch-js": "watchify -t coffeeify -t [ reactify --extension coffee ] --debug app/main.coffee -o public/js/bundle.js -dv",
     "watch-css": "sass --watch --compass app/styles:public/styles",
     "build": "npm run build-js && npm run build-css",
     "watch": "npm run watch-js & npm run watch-css"
@@ -29,7 +29,8 @@
     "browserify": "~3.31.2",
     "watchify": "~0.6.1",
     "reactify": "~0.9.1",
-    "react-tools": "~0.9.0"
+    "react-tools": "~0.9.0",
+    "coffeeify": "~0.6.0"
   },
   "dependencies": {
     "jquery": "~2.1.0"

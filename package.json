@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-js": "browserify -t coffeeify -t [ reactify --extension coffee ] app/main.coffee | uglifyjs -mc > public/js/bundle.js",
-    "build-css": "sass --compass app/styles:public/styles",
-    "watch-js": "watchify -t coffeeify -t [ reactify --extension coffee ] --debug app/main.coffee -o public/js/bundle.js -dv",
-    "watch-css": "sass --watch --compass app/styles:public/styles",
+    "build-js": "browserify -t coffeeify -t [ reactify --extension coffee ] client/app/main.coffee | uglifyjs -mc > client/public/js/bundle.js",
+    "build-css": "sass --compass client/app/styles:client/public/styles",
+    "watch-js": "watchify -t coffeeify -t [ reactify --extension coffee ] --debug client/app/main.coffee -o client/public/js/bundle.js -dv",
+    "watch-css": "sass --watch --compass client/app/styles:client/public/styles",
     "build": "npm run build-js && npm run build-css",
     "watch": "npm run watch-js & npm run watch-css"
   },

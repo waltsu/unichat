@@ -1,35 +1,52 @@
-{div, form, h4} = React.DOM
+{div, h4} = React.DOM
+{ul, li} = React.DOM
+{form, input} = React.DOM
 
 comment = React.createClass
   render: ->
-    div className: 'comment',
-      h4 className: 'comment-author',
-        @props.user
+    li className: 'comment',
+      div className: 'comment-name',
+        @props.name
       div className: 'comment-content',
         @props.text
 
 commentsList = React.createClass
   render: ->
     nodes = @props.comments.map (c) ->
-      {user, text} = c
-      comment({user: user, text: text})
-    div className: "comments-list", nodes
+      comment(c)
+    ul className: "comments-list", nodes
 
 commentForm = React.createClass
   submit: ->
-    console.log "submit"
+    {text} = @refs
+    @props.submit {text: text.state.value}
+    text.getDOMNode().value = ""
+    false
   render: ->
     form className: "comment-form", onSubmit: @submit,
-      div {}, "comment form"
+      input type: "text", ref: "text"
+      input type: "submit", value: "Post"
 
 comments = React.createClass
+  loadComments: ->
+    $.ajax(
+      url: @props.url
+      dataType: 'json'
+      success: (comments) =>
+        @setState {comments: comments}
+        console.log comments[0]
+      error: -> console.error "error"
+    )
   getInitialState: ->
-    {comments: [
-      {user: "Minetsku", text: "very good!"}
-      {user: "Petsku", text: "nice!"}
-    ]}
-  submit: ->
-    console.log "submitting", arguments
+    {comments: []}
+  componentWillMount: ->
+    @loadComments()
+  submit: (comment) ->
+    comments = @state.comments
+    comment.name = @props.name
+    comments.push(comment)
+    @setState {comments: comments}
+
   render: ->
     div className: 'comments',
       commentsList {comments: @state.comments}

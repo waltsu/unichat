@@ -1,6 +1,9 @@
 html {
   font-size: 100%;
 }
+li {
+  list-style: none;
+}
 #chat-container {
   width:73%;
   height: 100%;
@@ -16,6 +19,18 @@ html {
     bottom: 50px;
     overflow-x: hidden;
     overflow-y: scroll;
+    .comment {
+      padding: 10px;
+      .comment-name {
+        margin-right: 10px;
+        width: 5em;
+        font-weight: 700;
+      }
+      .comment-content {
+        margin-right: 1em;
+        overflow: hidden;
+      }
+    }
   }
   .comment-form {
     box-sizing: border-box;

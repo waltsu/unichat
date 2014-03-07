@@ -5,7 +5,7 @@
 comment = React.createClass
   render: ->
     li className: 'comment',
-      div className: 'comment-name',
+      div className: 'comment-name left',
         @props.name
       div className: 'comment-content',
         @props.text
@@ -34,7 +34,7 @@ commentForm = React.createClass
 
   render: ->
     form className: "comment-form", onSubmit: @submit,
-      input className: "comment-submit rigth", type: "submit", value: "Post",
+      input className: "comment-submit rigth", type: "submit", value: "Send",
       input className: "comment-input left", type: "text", placeholder: "Chat...", ref: "text"
 
 comments = React.createClass

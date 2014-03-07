@@ -34,8 +34,8 @@ commentForm = React.createClass
 
   render: ->
     form className: "comment-form", onSubmit: @submit,
-      input type: "text", ref: "text"
-      input type: "submit", value: "Post"
+      input className: "comment-submit rigth", type: "submit", value: "Post",
+      input className: "comment-input left", type: "text", placeholder: "Chat...", ref: "text"
 
 comments = React.createClass
   loadComments: ->

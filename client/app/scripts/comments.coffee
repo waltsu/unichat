@@ -11,6 +11,10 @@ comment = React.createClass
         @props.text
 
 commentsList = React.createClass
+  componentDidUpdate: ->
+    node = @getDOMNode()
+    node.scrollTop = node.scrollHeight
+
   render: ->
     nodes = @props.comments.map (c) ->
       comment(c)
@@ -22,6 +26,7 @@ commentForm = React.createClass
     @props.submit {text: text.state.value}
     text.getDOMNode().value = ""
     false
+
   render: ->
     form className: "comment-form", onSubmit: @submit,
       input type: "text", ref: "text"
@@ -34,13 +39,15 @@ comments = React.createClass
       dataType: 'json'
       success: (comments) =>
         @setState {comments: comments}
-        console.log comments[0]
       error: -> console.error "error"
     )
+
   getInitialState: ->
     {comments: []}
+
   componentWillMount: ->
     @loadComments()
+
   submit: (comment) ->
     comments = @state.comments
     comment.name = @props.name

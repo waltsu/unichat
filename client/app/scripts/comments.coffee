@@ -11,9 +11,14 @@ comment = React.createClass
         @props.text
 
 commentsList = React.createClass
-  componentDidUpdate: ->
+  componentWillUpdate: ->
     node = @getDOMNode()
-    node.scrollTop = node.scrollHeight
+    @canScroll = node.scrollTop + node.offsetHeight is node.scrollHeight
+
+  componentDidUpdate: ->
+    if @canScroll
+      node = @getDOMNode()
+      node.scrollTop = node.scrollHeight
 
   render: ->
     nodes = @props.comments.map (c) ->

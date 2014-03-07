@@ -1,0 +1,25 @@
+#chat-container {
+  width:73%;
+  height: 100%;
+  float: left;
+  position: relative;
+  border-right: 1px solid black;
+
+  .comments-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .comment-form {
+    width: 100%;
+    height: 50px;
+    background-color: silver;
+    position: absolute;
+    bottom: 0;
+  }
+}
+

@@ -1,7 +1,7 @@
 {
   "name": "unichat-bakcned",
   "version": "0.0.1",
-  "author": "Valtteri Virtanen",
+  "author": "Valtteri Virtanen, Petri Avikainen, Atte Moisio",
   "description": "Backend of Unichat",
   "repository": {
     "type": "git",

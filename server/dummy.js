@@ -1,6 +1,4 @@
-var host = location.origin.replace(/^http/, 'ws')
-console.log(host);
-var ws = new WebSocket("ws://localhost:7000");
-ws.onmessage = function (event) {
-  console.log(JSON.parse(event.data));
-};
+var socket = io.connect('http://localhost:7000');
+socket.on('greeting', function (data) {
+  console.log(data);
+});

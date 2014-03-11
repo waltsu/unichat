@@ -26,6 +26,6 @@ Running
 foreman start backend
 ```
 
-To test that backend server is running correctly, go to `http://localhost:5000`
+To test that backend server is running correctly, go to `http://localhost:7000`
 with your browser
 

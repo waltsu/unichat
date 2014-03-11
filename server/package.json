@@ -1,0 +1,21 @@
+{
+  "name": "unichat-bakcned",
+  "version": "0.0.1",
+  "author": "Valtteri Virtanen",
+  "description": "Backend of Unichat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/waltsu/unichat"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+    "coffee-script": "~1.6.1",
+    "express": "~3.0.0",
+    "ws": "~0.4",
+    "debug": "~0.7.2"
+  },
+  "engines": {
+    "node": "0.8.22"
+  }
+}

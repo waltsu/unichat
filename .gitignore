@@ -15,4 +15,4 @@ npm-debug.log
 node_modules
 .sass-cache
 
-public/js/.bundle.js
+client/public/js/.bundle.js

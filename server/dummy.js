@@ -6,7 +6,7 @@ $(function() {
       room: "foo"
     });
   });
-  socket.on('greeting', function (data) {
+  socket.on('user-joined', function (data) {
     console.log(data);
   });
 });

@@ -29,8 +29,8 @@ class SocketActor
   broadcast: (ev) ->
     debug("Broadcasting to all clients in room: #{ev.room}")
     room = ev.room
-    message: ev.message
-    @io.sockets.in(room).emit(ev.key, ev.message)
+    data = ev.data
+    @io.sockets.in(room).emit(ev.key, data)
 
   newConnection: (socket) =>
     debug("Got new connection! #{socket.id}")

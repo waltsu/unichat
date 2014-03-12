@@ -14,6 +14,7 @@ $(function() {
     });
   });
   socket.on('message', function (data) {
+    $("body").append("<div>" + data.message + "</div>");
     console.log(data);
   });
 });

@@ -25,6 +25,7 @@ class UserActor
     debug("Joing user #{@id} to room #{ev.data.room}")
     ev.socket.join(ev.data.room)
     @room = ev.data.room
+    @nick = ev.data.nick
     unbind(ev.socket, 'join')
     @manager.globalBus.push { type: "BROADCAST", room: ev.data.room, key: "user-joined", message: "User #{@id} joined to room #{ev.data.room}" }
 

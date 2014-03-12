@@ -3,7 +3,8 @@ $(function() {
   $('#join').click(function(ev) {
     ev.preventDefault();
     socket.emit('join', {
-      room: "foo"
+      room: "foo",
+      nick: new Date().getTime()
     });
   });
   $('#send-message').click(function(ev) {

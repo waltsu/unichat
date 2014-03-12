@@ -21,6 +21,10 @@ class SocketActor
   newConnection: (socket) =>
     debug("Got new connection! #{socket.id}")
     @sockets.push socket
-    @manager.createUserActor(socket.id)
+    @manager.createUserActor(socket)
+
+  joinToRoom: (ev) ->
+    debug("User #{ev.socket.id} joined to room #{ev.data.room}")
+    ev.socket.join(ev.data.room)
 
 module.exports = SocketActor

@@ -17,9 +17,9 @@ class ActorManager
     socketActor = new SocketActor(@)
     @actors.push(socketActor)
 
-  createUserActor: (id) ->
+  createUserActor: (socket) ->
     debug('Creating new user actor')
-    userActor = new UserActor(id)
+    userActor = new UserActor(@, socket)
     @actors.push(userActor)
 
   removeUserActor: (id) ->

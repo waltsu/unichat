@@ -31,6 +31,6 @@ class UserActor
 
   handleSendMessage: (ev) ->
     debug("User #{@id} sent message #{ev.data.message}")
-    @manager.globalBus.push { type: "BROADCAST", room: @room, key: "message", data: { message: "User #{@id} sent message #{ev.data.message}" } }
+    @manager.globalBus.push { type: "BROADCAST", room: @room, key: "message", data: { message: "User #{@nick} sent message #{ev.data.message}" } }
 
 module.exports = UserActor

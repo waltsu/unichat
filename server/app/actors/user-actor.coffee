@@ -9,9 +9,11 @@ bind = (socket, key) ->
 
 class UserActor
   constructor: (@manager, socket) ->
+    @id = socket.id
     @type = 'player'
 
     bind(socket, 'join').onValue (ev) => @joinToRoom(ev)
+    bind(socket, 'disconnect').onValue (ev) => @manager.removeUserActor(@id)
 
   handleChatMessage: (ev) ->
     debug("Got chat message: #{ev.message}")

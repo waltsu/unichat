@@ -13,7 +13,7 @@ $(function() {
       message: "Hello world"
     });
   });
-  socket.on('user-joined', function (data) {
+  socket.on('message', function (data) {
     console.log(data);
   });
 });

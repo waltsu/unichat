@@ -21,7 +21,6 @@ class SocketActor
   newConnection: (socket) =>
     debug("Got new connection! #{socket.id}")
     @sockets.push socket
-    socket.emit('greeting', { data: "Hello user" })
-
+    @manager.createUserActor(socket.id)
 
 module.exports = SocketActor

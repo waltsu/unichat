@@ -1,1 +1,1 @@
-backend: ./node_modules/.bin/coffee app/app.coffee
+web: ./node_modules/.bin/coffee app/app.coffee

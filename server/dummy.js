@@ -1,5 +1,5 @@
 $(function() {
-  var socket = io.connect('http://localhost:7000');
+  var socket = io.connect('http://utuchat.herokuapp.com:80');
   $('#join').click(function(ev) {
     ev.preventDefault();
     socket.emit('join', {

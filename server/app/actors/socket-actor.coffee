@@ -1,7 +1,6 @@
 debug = require('debug')('uni:socket-actor')
 Bacon = require('baconjs')
 _ = require('underscore')
-WebSocketServer = require('ws').Server
 
 bind = (socket, key) ->
   bus = new Bacon.Bus()

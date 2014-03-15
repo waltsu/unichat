@@ -17,7 +17,6 @@ class UserActor
     @type = 'player'
 
     bind(socket, 'join').onValue (ev) => @joinToRoom(ev)
-    bind(socket, 'init').onValue (ev) => @initClient(ev)
     bind(socket, 'disconnect').onValue (ev) => @manager.removeUserActor(@id)
     bind(socket, 'send-message').onValue (ev) => @handleSendMessage(ev)
 

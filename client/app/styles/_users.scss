@@ -1,6 +1,28 @@
+$containerHeight: 50px;
 #users-container {
-  width:26%;
+  box-sizing: border-box;
+  width: $usersWidth;
   height: 100%;
   float: right;
+  position: relative;
+  header {
+    height: $containerHeight;
+    border-bottom: 1px solid silver;
+    div {
+      color: #777777;
+      height: 100%;
+      line-height: $containerHeight;
+      margin-left: $containerHeight/2;
+      .room-name {
+        font-size: 150%;
+        font-weight: 700;
+      }
+    }
+    i {
+      float: right;
+      line-height: $containerHeight;
+      margin-right: $containerHeight/2;
+    }
+  }
 }
 

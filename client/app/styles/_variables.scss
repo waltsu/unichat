@@ -1,0 +1,4 @@
+$splitRatio: 0.75;
+$chatWidth: percentage($splitRatio);
+$usersWidth: percentage(1 - $splitRatio);
+

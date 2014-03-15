@@ -1,15 +1,17 @@
 html {
   font-size: 100%;
+  font-family: Helvetica;
 }
 li {
   list-style: none;
 }
 #chat-container {
-  width:73%;
+  width: $chatWidth;
   height: 100%;
   float: left;
   position: relative;
   border-right: 1px solid silver;
+  box-sizing: border-box;
 
   .messages-list {
     position: absolute;

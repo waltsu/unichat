@@ -18,6 +18,7 @@ class SocketActor
   bindEvents: ->
     @manager.globalBus.filter((ev) -> ev.type == 'START_LISTENING_SOCKETS').onValue (ev) => @startListeningSockets(ev.io)
     @manager.globalBus.filter((ev) -> ev.type == 'BROADCAST').onValue (ev) => @broadcast(ev)
+    @manager.globalBus.filter((ev) -> ev.type == 'UNICAST').onValue (ev) => @unicast(ev)
 
 
   startListeningSockets: (io) ->
@@ -30,6 +31,13 @@ class SocketActor
     room = ev.room
     data = ev.data
     @io.sockets.in(room).emit(ev.key, data)
+
+  unicast: (ev) ->
+    debug("Unicasting to single client in room: #{ev.room}")
+    room = ev.room
+    data = ev.data
+    id = ev.id
+    @io.sockets.in(room).socket(id).emit(ev.key, data)
 
   newConnection: (socket) =>
     debug("Got new connection! #{socket.id}")

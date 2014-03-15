@@ -17,9 +17,9 @@ class UserActor
     @type = 'player'
 
     bind(socket, 'join').onValue (ev) => @joinToRoom(ev)
+    bind(socket, 'init').onValue (ev) => @initClient(ev)
     bind(socket, 'disconnect').onValue (ev) => @manager.removeUserActor(@id)
     bind(socket, 'send-message').onValue (ev) => @handleSendMessage(ev)
-
 
   joinToRoom: (ev) ->
     debug("Joing user #{@id} to room #{ev.data.room}")
@@ -28,6 +28,7 @@ class UserActor
     @nick = ev.data.nick
     unbind(ev.socket, 'join')
     @manager.globalBus.push { type: "BROADCAST", room: ev.data.room, key: "user-joined", data: {user:{ nick: ev.data.nick, id: @id } } }
+    @manager.globalBus.push { type: "UNICAST", id: @id, room: ev.data.room, key: "init", data: { user: { nick: ev.data.nick, id: @id } } }
 
   handleSendMessage: (ev) ->
     debug("User #{@id} sent message #{ev.data.message}")

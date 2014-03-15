@@ -63,7 +63,6 @@ comments = React.createClass
     {comments: [], key: 0}
 
   componentWillMount: ->
-    @loadComments()
 
   decorateComment: (comment, key) ->
     comment.name = @props.name

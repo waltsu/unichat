@@ -16,11 +16,23 @@ roomForm = React.createClass
       input className: "credentials-send", type: "submit", value: "Send",
 
 usersHeader = React.createClass
+  handleRoomContentEditable: () ->
+    node = @refs.roomName.getDOMNode()
+    node.textContent = ""
+    node.contentEditable = true
+    node.focus()
+
+  changeRoom: (ev) ->
+    if ev.keyCode isnt 13 then return
+    node = @refs.roomName.getDOMNode()
+    node.contentEditable = false
+    node.blur()
+
   render: ->
     header className: "users-header",
       div {},
-        span className: "room-name", @props.room
-        i className: "fa fa-times"
+        span {className: "room-name", ref: "roomName", onBlur: @changeRoom, onKeyDown: @changeRoom}, @props.room
+        i className: "fa fa-times", onClick: @handleRoomContentEditable
 
 usersContainer = React.createClass
   render: ->

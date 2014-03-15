@@ -1,4 +1,4 @@
-{div} = React.DOM
+{div, span, header, i} = React.DOM
 {form, input, label} = React.DOM
 
 roomForm = React.createClass
@@ -15,16 +15,18 @@ roomForm = React.createClass
         input className: "credentials-room", type: "text", ref: "room"
       input className: "credentials-send", type: "submit", value: "Send",
 
+usersHeader = React.createClass
+  render: ->
+    header className: "users-header",
+      div {},
+        span className: "room-name", @props.room
+        i className: "fa fa-times"
+
 usersContainer = React.createClass
-  getInitialState: ->
-    {users: [], key: 0}
-
-  joinMessage: (message) ->
-    @props.socket.emit('join', message)
-
   render: ->
     div id: "users-container",
-      roomForm({joinMessage: @joinMessage})
+      usersHeader {room: @props.room}
+      # roomForm {joinMessage: @joinMessage}
 
 module.exports.usersContainer = usersContainer
 

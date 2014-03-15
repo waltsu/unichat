@@ -11,7 +11,7 @@ chatApp = React.createClass
     socket.on('user-joined', @userJoined)
     socket.on('message', @messageReceived)
     socket.emit('join', {room: 'ImaIIA', nick: 'Petri'})
-    return {users: [], messages: []}
+    return {users: [], messages: [], room: 'ImaIIA'}
 
   initialize: (data) ->
     @setState {user: data.user}
@@ -36,6 +36,6 @@ chatApp = React.createClass
   render: ->
     div id: "main-container",
       messagesContainer messages: @state.messages, user: @state.user, onMessageSubmit: @sendMessageHandle
-      usersContainer users: @state.users
+      usersContainer users: @state.users, room: @state.room
 
 React.renderComponent chatApp(), document.getElementById('wrap')

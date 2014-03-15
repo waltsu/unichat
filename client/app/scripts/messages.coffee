@@ -28,7 +28,6 @@ messagesList = React.createClass
     if @canScroll then scrollToBottom()
 
   render: ->
-    debugger
     nodes = @props.messages.map (c) ->
       message(c)
     ul className: "messages-list", nodes

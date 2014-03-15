@@ -7,19 +7,23 @@ usersContainer = require('./scripts/users.coffee').usersContainer
 
 chatApp = React.createClass
   getInitialState: ->
+    socket.on('init', @initialize)
     socket.on('user-joined', @userJoined)
     socket.on('message', @messageReceived)
     socket.emit('join', {room: 'ImaIIA', nick: 'Petri'})
     return {users: [], messages: []}
+
+  initialize: (data) ->
+    @setState {user: data.user}
 
   userJoined: (data) ->
     @state.users.push data.user
     @setState {users: @state.users}
 
   messageReceived: (data) ->
-    if data.user.id
-      @state.messages.push {text: data.message, user: data.user}
-      @setState {messages: @state.messages}
+    if data.user.id is @state.user.id then return
+    @state.messages.push {text: data.message, user: data.user}
+    @setState {messages: @state.messages}
 
   sendMessageHandle: (message) ->
     decorateMessage = (message) =>

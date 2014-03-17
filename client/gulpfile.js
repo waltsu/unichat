@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     livereload = require('gulp-livereload'),
     browserify = require('browserify'),

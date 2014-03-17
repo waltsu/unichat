@@ -5,6 +5,7 @@ socket = require('socket.io-client').connect('http://localhost:7000')
 messagesContainer = require('./scripts/messages.coffee').messagesContainer
 usersContainer = require('./scripts/users.coffee').usersContainer
 
+console.log "here"
 chatApp = React.createClass
   getInitialState: ->
     socket.on('init', @initialize)

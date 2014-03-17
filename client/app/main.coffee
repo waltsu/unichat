@@ -16,9 +16,7 @@ chatApp = React.createClass
     return {users: [], messages: []}
 
   handleCredentials: (credentials) ->
-    console.log credentials
-    @state.user = {}
-    @setState {user: {id: null, nick: credentials.user.nick, room: credentials.room}}
+    @setState {user: {id: null, nick: credentials.user.nick}, room: credentials.room}
     socket.emit('join', {nick: credentials.user.nick, room: credentials.room})
     React.unmountComponentAtNode(document.getElementById('modal-container'))
 

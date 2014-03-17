@@ -1,0 +1,21 @@
+.nick-room-form {
+  display: table-cell;
+  input, label {
+    width: 100%;
+  }
+  input {
+    padding: 0;
+    border: 0;
+    text-align: center;
+    height: 30px;
+    font-size: 1.2rem;
+  }
+  label {
+    height: 20px;
+    line-height: 200%;
+  }
+  .nick-room-submit {
+    margin-top: 20px;
+    width: 50%;
+  }
+}

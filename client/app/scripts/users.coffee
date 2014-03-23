@@ -11,7 +11,6 @@ user = React.createClass
 usersList = React.createClass
   render: ->
     users = @props.users.map (u) ->
-      console.log u
       user(u)
     ul className: "users-list", users
 

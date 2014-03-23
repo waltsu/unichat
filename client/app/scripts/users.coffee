@@ -1,19 +1,19 @@
 {div, span, header, i} = React.DOM
 {form, input, label} = React.DOM
+{ul, li} = React.DOM
 
-roomForm = React.createClass
-  submit: ->
-    {room} = @refs
-    roomNode = room.getDOMNode()
-    if roomNode.value
-      @props.joinMessage {room: room.state.value, nick: 'Peppe'}
-    false
-
+user = React.createClass
   render: ->
-    form className: "credentials-form", onSubmit: @submit,
-      label {}, "Huone",
-        input className: "credentials-room", type: "text", ref: "room"
-      input className: "credentials-send", type: "submit", value: "Send",
+    li className: 'user',
+      div className: 'user-name',
+        @props.nick
+
+usersList = React.createClass
+  render: ->
+    users = @props.users.map (u) ->
+      console.log u
+      user(u)
+    ul className: "users-list", users
 
 usersHeader = React.createClass
   handleRoomContentEditable: () ->
@@ -38,7 +38,6 @@ usersContainer = React.createClass
   render: ->
     div id: "users-container",
       usersHeader {room: @props.room}
-      # roomForm {joinMessage: @joinMessage}
+      usersList {users: @props.users}
 
 module.exports.usersContainer = usersContainer
-

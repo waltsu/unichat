@@ -15,5 +15,5 @@ npm-debug.log
 node_modules
 .sass-cache
 
-client/public/js
-client/public/styles
+client/public
+client/public

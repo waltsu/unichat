@@ -54,6 +54,10 @@ gulp.task('styles-production', function () {
   compileStyles({outputStyle: 'compressed'});
 });
 
+gulp.task('copy-static', function () {
+  gulp.src(['index.html'])
+    .pipe(gulp.dest('public/'))
+})
 
 gulp.task('staticsvr', function(next) {
   var staticS = require('node-static'),
@@ -82,4 +86,4 @@ gulp.task('dev', function () {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['coffee-production', 'styles-production']);
+gulp.task('default', ['copy-static', 'coffee-production', 'styles-production']);

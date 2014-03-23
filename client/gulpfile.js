@@ -61,7 +61,7 @@ gulp.task('copy-static', function () {
 
 gulp.task('staticsvr', function(next) {
   var staticS = require('node-static'),
-      server = new staticS.Server(),
+      server = new staticS.Server('./public'),
       port = 8000;
   require('http').createServer(function (request, response) {
     request.addListener('end', function () {
@@ -79,7 +79,7 @@ gulp.task('livereload', ['staticsvr'], function () {
   });
 });
 
-gulp.task('dev', function () {
+gulp.task('dev', ['copy-static'], function () {
   gulp.start('livereload', ['coffee', 'styles']);
   gulp.watch(paths.scripts, ['coffee']);
   gulp.watch(paths.styles, ['styles']);

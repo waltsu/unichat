@@ -1,5 +1,5 @@
 $                 = require('jquery')
-socket            = require('socket.io-client').connect('http://utuchat.exobald.es:5000')
+socket            = require('socket.io-client').connect('http://utuchat.exobald.es:5001')
 
 messagesContainer = require('./scripts/messages.coffee').messagesContainer
 usersContainer    = require('./scripts/users.coffee').usersContainer

@@ -27,7 +27,8 @@ chatApp = React.createClass
       React.renderComponent component, document.getElementById("modal-container")
 
   initialize: (data) ->
-    @setState {user: id: data.user.id, nick: @state.user.nick}
+    @state.users = data.users
+    @setState {user: id: data.user.id, nick: @state.user.nick, users: data.users}
 
   userJoined: (data) ->
     @state.users.push data.user

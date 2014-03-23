@@ -15,12 +15,6 @@ usersList = React.createClass
     ul className: "users-list", users
 
 usersHeader = React.createClass
-  handleRoomContentEditable: () ->
-    node = @refs.roomName.getDOMNode()
-    node.textContent = ""
-    node.contentEditable = true
-    node.focus()
-
   changeRoom: (ev) ->
     if ev.keyCode isnt 13 then return
     node = @refs.roomName.getDOMNode()
@@ -31,7 +25,6 @@ usersHeader = React.createClass
     header className: "users-header",
       div {},
         span {className: "room-name", ref: "roomName", onBlur: @changeRoom, onKeyDown: @changeRoom}, @props.room
-        i className: "fa fa-times", onClick: @handleRoomContentEditable
 
 usersContainer = React.createClass
   render: ->

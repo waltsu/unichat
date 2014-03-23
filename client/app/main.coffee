@@ -1,4 +1,5 @@
 $                 = require('jquery')
+_                 = require('underscore')
 socket            = require('socket.io-client').connect('http://utuchat.exobald.es:5001')
 
 messagesContainer = require('./scripts/messages.coffee').messagesContainer
@@ -13,6 +14,7 @@ chatApp = React.createClass
     socket.on('init', @initialize)
     socket.on('user-joined', @userJoined)
     socket.on('message', @messageReceived)
+    socket.on('user-left', @userLeft)
     return {users: [], messages: []}
 
   handleCredentials: (credentials) ->
@@ -38,6 +40,10 @@ chatApp = React.createClass
     if data.user.id is @state.user.id then return
     @state.messages.push {text: data.message, user: data.user}
     @setState {messages: @state.messages}
+
+  userLeft: (data) ->
+    @state.users = _.filter(@state.users, (u) -> u.id != data.user.id)
+    @setState { users: @state.users }
 
   sendMessageHandle: (message) ->
     decorateMessage = (message) =>

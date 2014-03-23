@@ -17,7 +17,7 @@ class UserActor
     @type = 'user'
 
     bind(socket, 'join').onValue (ev) => @joinToRoom(ev)
-    bind(socket, 'disconnect').onValue (ev) => @manager.removeUserActor(@id)
+    bind(socket, 'disconnect').onValue (ev) => @handleDisconnet(ev)
     bind(socket, 'send-message').onValue (ev) => @handleSendMessage(ev)
 
   joinToRoom: (ev) ->
@@ -47,5 +47,10 @@ class UserActor
   handleSendMessage: (ev) ->
     debug("User #{@id} sent message #{ev.data.message}")
     @manager.globalBus.push { type: "BROADCAST", room: @room, key: "message", data: { user: { nick: @nick, id: @id }, message: ev.data.message } }
+
+  handleDisconnet: (ev) ->
+    @manager.removeUserActor(@id)
+    debug("Broadcasting to others in room that user #{@id} has left the room")
+    @manager.globalBus.push { type: "BROADCAST", room: @room, key: "user-left", data: { user: { nick: @nick, id: @id } } }
 
 module.exports = UserActor

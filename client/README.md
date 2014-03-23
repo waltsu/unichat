@@ -20,6 +20,8 @@ gulp dev
 `gulp dev` makes a static server and run livereload. Use chrome livereload
 extension to get it working.
 
+To see that the dev environment is running correctly, navigate with your browser to `localhost:8000`
+
 For production
 ```
 gulp

@@ -14,7 +14,7 @@ unbind = (socket, key) ->
 class UserActor
   constructor: (@manager, socket) ->
     @id = socket.id
-    @type = 'player'
+    @type = 'user'
 
     bind(socket, 'join').onValue (ev) => @joinToRoom(ev)
     bind(socket, 'disconnect').onValue (ev) => @manager.removeUserActor(@id)
@@ -26,8 +26,23 @@ class UserActor
     @room = ev.data.room
     @nick = ev.data.nick
     unbind(ev.socket, 'join')
+
+    roomUsers = _.map(@manager.getUsersFromRoom(@room), (u) -> _.pick(u, 'id', 'nick'))
+
     @manager.globalBus.push { type: "BROADCAST", room: ev.data.room, key: "user-joined", data: {user:{ nick: ev.data.nick, id: @id } } }
-    @manager.globalBus.push { type: "UNICAST", id: @id, room: ev.data.room, key: "init", data: { user: { nick: ev.data.nick, id: @id } } }
+    @manager.globalBus.push({
+      key: "init",
+      type: "UNICAST",
+      id: @id,
+      room: ev.data.room,
+      data: {
+        user: {
+          nick: ev.data.nick,
+          id: @id
+        },
+        users: roomUsers
+      }
+    })
 
   handleSendMessage: (ev) ->
     debug("User #{@id} sent message #{ev.data.message}")

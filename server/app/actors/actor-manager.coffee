@@ -26,5 +26,8 @@ class ActorManager
     debug("Removing user actor: #{id}")
     @actors = _.filter(@actors, (a) -> a.id != id)
 
+  getUsersFromRoom: (room) ->
+    _.chain(@actors).filter((a) -> a.type == 'user').filter((a) -> a.room == room).value()
+
 actorManager = new ActorManager()
 module.exports = actorManager

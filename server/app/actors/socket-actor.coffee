@@ -2,12 +2,6 @@ debug = require('debug')('uni:socket-actor')
 Bacon = require('baconjs')
 _ = require('underscore')
 
-bind = (socket, key) ->
-  bus = new Bacon.Bus()
-  socket.on key, (data) ->
-    bus.push { socket: socket, key: key, data: data }
-  bus
-
 class SocketActor
   constructor: (@manager) ->
     @type = 'socket'
@@ -43,9 +37,5 @@ class SocketActor
     debug("Got new connection! #{socket.id}")
     @sockets.push socket
     @manager.createUserActor(socket)
-
-  joinToRoom: (ev) ->
-    debug("User #{ev.socket.id} joined to room #{ev.data.room}")
-    ev.socket.join(ev.data.room)
 
 module.exports = SocketActor

@@ -15,7 +15,8 @@
     "baconjs": "~0.6",
     "underscore": "*",
     "socket.io": "~0.9",
-    "debug": "~0.7.2"
+    "debug": "~0.7.2",
+    "orm": "~2.1"
   },
   "engines": {
     "node": "0.10.26"

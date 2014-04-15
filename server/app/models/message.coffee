@@ -1,8 +1,13 @@
 orm = require 'orm'
 debug = require('debug')('uni:models:message')
+Bacon = require('baconjs')
+_ = require('underscore')
 
 DB_STRING = process.env.DB_STRING
 debug("Using #{DB_STRING} as a DB_STRING")
+
+connect = (cb) ->
+  orm.connect "#{DB_STRING}?debug=true", cb
 
 class Message
   @dbModel = (db) ->
@@ -10,12 +15,34 @@ class Message
       nick: type: "text"
       message: type: "text"
       room: type: "text"
+    }, {
+      methods: {
+        hash: ->
+          {
+            nick: @nick
+            message: @message
+            room: @room
+          }
+      }
     }
 
   @fromSentMessage: (message, room) ->
     new Message(message.user.nick, message.message, room)
 
-  initialize: (@nick, @message, @room) ->
+  @messagesByRoom: (room) ->
+    returnBus = new Bacon.Bus()
+    connect (err, db) ->
+      if err then return debug("DB ERR #{err}")
+      Message.dbModel(db).find room: room, (err, results) ->
+        if err
+          returnBus.error(err)
+        else
+          returnBus.push _.map(results, (r) -> _.omit(r.hash(), 'room'))
+        returnBus.end()
+    returnBus
+
+
+  constructor: (@nick, @message, @room) ->
 
   hash: ->
     {
@@ -23,16 +50,14 @@ class Message
       message: @message
       room: @room
     }
+
+  # Hit 'n run method for saving messages. It is not world greatest problem if we can't store it
   save: ->
     debug "Saving"
-    orm.connect "#{DB_STRING}?debug=true", (err, db) =>
+    connect (err, db) =>
       if err then return debug("DB ERR #{err}")
       debug("Got database!")
-      dbModel(db).sync()
-###
-      dbModel(db).create @hash(), (err, result) ->
+      Message.dbModel(db).create @hash(), (err, result) ->
         if err then return debug("Insertion error: #{err}")
-        debug("Save succeeded")
-        console.log result
-###
+
 module.exports = Message

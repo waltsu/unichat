@@ -2,6 +2,7 @@ debug = require('debug')('uni:user-actor')
 Bacon = require('baconjs')
 _ = require('underscore')
 
+Message = require('../models/message')
 bind = (socket, key) ->
   bus = new Bacon.Bus()
   socket.on key, (data) ->
@@ -27,30 +28,44 @@ class UserActor
     @nick = ev.data.nick
     unbind(ev.socket, 'join')
 
-    roomUsers = _.map(@manager.getUsersFromRoom(@room), (u) -> _.pick(u, 'id', 'nick'))
+    Message.messagesByRoom(@room).onValue (messages) =>
+      roomUsers = _.map(@manager.getUsersFromRoom(@room), (u) -> _.pick(u, 'id', 'nick'))
 
-    @manager.globalBus.push { type: "BROADCAST", room: ev.data.room, key: "user-joined", data: {user:{ nick: ev.data.nick, id: @id } } }
-    @manager.globalBus.push({
-      key: "init",
-      type: "UNICAST",
-      id: @id,
-      room: ev.data.room,
-      data: {
-        user: {
-          nick: ev.data.nick,
-          id: @id
-        },
-        users: roomUsers
-      }
-    })
+      @manager.globalBus.push { type: "BROADCAST", room: ev.data.room, key: "user-joined", data: {user:{ nick: ev.data.nick, id: @id } } }
+      @manager.globalBus.push({
+        key: "init",
+        type: "UNICAST",
+        id: @id,
+        room: ev.data.room,
+        data: {
+          user: {
+            nick: ev.data.nick,
+            id: @id
+          },
+          users: roomUsers
+          old_messages: messages
+        }
+      })
 
   handleSendMessage: (ev) ->
     debug("User #{@id} sent message #{ev.data.message}")
-    @manager.globalBus.push { type: "BROADCAST", room: @room, key: "message", data: { user: { nick: @nick, id: @id }, message: ev.data.message } }
+    message =
+      user:
+        nick: @nick
+        id: @id
+      message: ev.data.message
+    @_persistMessage(message)
+    @manager.globalBus.push { type: "BROADCAST", room: @room, key: "message", data: message }
 
   handleDisconnet: (ev) ->
     @manager.removeUserActor(@id)
     debug("Broadcasting to others in room that user #{@id} has left the room")
     @manager.globalBus.push { type: "BROADCAST", room: @room, key: "user-left", data: { user: { nick: @nick, id: @id } } }
+
+  _persistMessage: (message) ->
+    debug("Persisting message")
+    message = Message.fromSentMessage(message, @room)
+    message.save()
+
 
 module.exports = UserActor

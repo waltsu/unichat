@@ -64,10 +64,17 @@ class UserActor
     debug("Broadcasting to others in room that user #{@id} has left the room")
     @manager.globalBus.push { type: "BROADCAST", room: @room, key: "user-left", data: { user: { nick: @nick, id: @id } } }
 
+    if @manager.getUsersFromRoom(@room).length == 0
+      @_turnOutLights()
+
   _persistMessage: (message) ->
     debug("Persisting message")
     message = Message.fromSentMessage(message, @room)
     message.save()
 
+  _turnOutLights: ->
+    return unless @room
+    debug("User #{@nick} turns lights out from room #{@room}")
+    Message.removeAllMessages(@room)
 
 module.exports = UserActor

@@ -41,6 +41,12 @@ class Message
         returnBus.end()
     returnBus
 
+  # Hit 'n run method for removing all messages from the specified room.
+  # It is not the world greatest problem if the messages couldn't be removed
+  @removeAllMessages: (room) ->
+    Message.messagesByRoom(room).flatMap((messages) ->
+      Bacon.fromArray(messages)
+    ).onValue('.remove')
 
   constructor: (@nick, @message, @room) ->
 

@@ -33,8 +33,13 @@ chatApp = React.createClass
       React.renderComponent component, document.getElementById("modal-container")
 
   initialize: (data) ->
+    debugger
     @state.users = data.users
     @setState {user: id: data.user.id, nick: @state.user.nick, users: data.users}
+    if data.old_messages.length
+      debugger
+      messages = @state.messages.concat(data.old_messages)
+      @setState messages: messages
 
   userJoined: (data) ->
     @state.users.push data.user

@@ -8,9 +8,9 @@ message = React.createClass
   render: ->
     li className: 'message',
       div className: 'message-name left',
-        @props.user.nick
+        (@props.nick or @props.user.nick)
       div className: 'message-content',
-        @props.text
+        (@props.message or @props.text)
 
 messagesList = React.createClass
   componentWillUpdate: ->

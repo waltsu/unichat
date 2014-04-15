@@ -1,1 +1,2 @@
 web: ./node_modules/.bin/coffee app/app.coffee
+init: ./node_modules/.bin/coffee app/setup_db.coffee

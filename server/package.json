@@ -16,7 +16,8 @@
     "underscore": "*",
     "socket.io": "~0.9",
     "debug": "~0.7.2",
-    "orm": "~2.1"
+    "orm": "~2.1",
+    "pg": "2.6.2"
   },
   "engines": {
     "node": "0.10.26"

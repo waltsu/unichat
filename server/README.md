@@ -19,6 +19,12 @@ gem install foreman
 
 After that install project dependencies with `npm install`
 
+Create file .env with proper settings (See `sample.env` for details)
+
+Create database
+
+Create tables with `foreman start init`
+
 Running
 -------
 

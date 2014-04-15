@@ -24,6 +24,10 @@ chatApp = React.createClass
 
   componentDidMount: ->
     if not @props.user and not @props.room
+      room = decodeURIComponent(location.search).split('=')?[1]
+      if room
+        @state.room = room
+        @setState room: room
       component = div className: "overlay",
           nickRoomForm room: @state.room, nick: @state.user, handleCredentials: @handleCredentials
       React.renderComponent component, document.getElementById("modal-container")

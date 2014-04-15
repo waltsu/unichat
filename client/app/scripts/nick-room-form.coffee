@@ -10,13 +10,18 @@ nickRoomForm = React.createClass
       @props.handleCredentials {user: {nick: nickNode.value}, room: roomNode.value}
     return false
 
+  componentDidMount: () ->
+    {nick} = @refs
+    nick.getDOMNode().focus()
+
   render: ->
+    room = @props.room
     div className: "modal",
       form className: "nick-room-form", onSubmit: @handleSubmit,
         label className: "form-label", htmlFor: "nick", "Nimimerkki"
         input type: "text", id: "nick", ref: "nick"
         label className: "form-label", htmlFor: "room", "Huone"
-        input type: "text", id: "room", ref: "room"
+        input type: "text", id: "room", ref: "room", value: room
         input type: "submit", value: "Joinaa", className: "nick-room-submit"
 
 module.exports.nickRoomForm = nickRoomForm

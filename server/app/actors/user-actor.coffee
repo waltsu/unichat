@@ -28,7 +28,9 @@ class UserActor
     @nick = ev.data.nick
     unbind(ev.socket, 'join')
 
-    Message.messagesByRoom(@room).onValue (messages) =>
+    Message.messagesByRoom(@room).map((results) ->
+      _.map results, (r) -> _.omit(r.hash(), 'room')
+    ).onValue (messages) =>
       roomUsers = _.map(@manager.getUsersFromRoom(@room), (u) -> _.pick(u, 'id', 'nick'))
 
       @manager.globalBus.push { type: "BROADCAST", room: ev.data.room, key: "user-joined", data: {user:{ nick: ev.data.nick, id: @id } } }

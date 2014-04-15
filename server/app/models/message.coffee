@@ -37,7 +37,7 @@ class Message
         if err
           returnBus.error(err)
         else
-          returnBus.push _.map(results, (r) -> _.omit(r.hash(), 'room'))
+          returnBus.push results
         returnBus.end()
     returnBus
 

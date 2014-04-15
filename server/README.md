@@ -23,7 +23,7 @@ Running
 -------
 
 ```
-foreman start backend
+foreman start
 ```
 
 To test that backend server is running correctly, go to `http://localhost:7000`
